@@ -106,6 +106,7 @@ media/
 *.pyc
 *.db
 *.pid
+kinotv/develop_app.py
 
 # Ignore Django Migrations in Development if you are working on team
 

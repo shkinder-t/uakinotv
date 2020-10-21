@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from .develop_app import *
 
 
 
@@ -26,7 +27,6 @@ SECRET_KEY = '2eni7m&3qfs$r!@kvb*na+0rdmy(@%@$n2c3yu=+tb!*^w53rv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,12 +77,7 @@ WSGI_APPLICATION = 'kinotv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 
 # Password validation
