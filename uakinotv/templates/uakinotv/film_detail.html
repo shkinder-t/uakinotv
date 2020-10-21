@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- //Meta tag Keywords -->
+    <title>Clack Website Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- //Meta tag Keywords -->
+    <!-- Custom-Files -->
+    <!-- Bootstrap-Core-CSS -->
+    <!--/ Style-CSS -->
+    <!--// Style-CSS -->
+    <!-- font-awesome-icons -->
+    <!-- //font-awesome-icons -->
+    <!-- /Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700"
+          rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900"
+          rel="stylesheet">
+    <!-- //Fonts -->
+</head>
+
+<body>
+
+<div id="page" class="page">
+    <div class="main-banner inner bg bg1" id="home">
+        <!-- header -->
+        <header class="header">
+                <div class="row mt-lg-4 bottom-w3layouts-sec-nav mx-0">
+                                <ul class="list-unstyled w3layouts-icons">
+                                    <li>
+                                        <a href="{% url 'uakinotv:first_page' %}"
+                                           class="editContent" ><p align="right"><strong>Повернутись на головну сторінку</strong></p></a>
+                                    </li>
+                                </ul>
+                </div>
+                <!-- //product left -->
+                <!-- product right -->
+                <div class="left-ads-display col-lg-8">
+                    <div class="row">
+                        <div class="desc1-right col-md-6 pl-lg-4">
+                            <h1 class="editContent" style="outline: none; cursor: inherit;">
+                                {{ film_desc.title }}
+                            </h1>
+                            <h3 class="editContent">Деталі:</h3>
+                            <li style="list-style: none"><span><b>Рік:</b> {{ film_desc.year }}</span></li>
+                            <span><b>Режисер:</b>
+                                        {% for director in film_desc.producer.all %}
+                                            {{ director.name }}
+                                        {% endfor %}
+                             </span>
+                                <li style="list-style: none"><span><b>Актори:</b>
+                                        {% for actor in film_desc.actors.all %}
+                                            {{ actor.name }}
+                                        {% endfor %}
+                                </span></li>
+                                <li style="list-style: none"><span><b>Жанр:</b>
+                                        {% for j in film_desc.genres.all %}
+                                            {{ j.name }}
+                                        {% endfor %}
+                                </span>
+                                </li>
+                                <li style="list-style: none">
+                                    <span><b>Бюджет:</b> {{ film_desc.budget }} грн</span></li>
+                                         </li>
+                                         <li style="list-style: none"></li>
+                        </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                        </div>
+        </header>
+                    </div>
+                    <div class="row sub-para-w3layouts mt-5">
+
+                        <h2 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+                            Опис фільму: {{film_desc.title}}</h2>
+                        <p1 class="editContent" style="outline: none; cursor: inherit;">
+                            {{film_desc.description|safe}}
+                        </p1>
+                        <p class="mt-3 editContent" style="outline: none; cursor: inherit;">
+                          Голосування
+                        </p>
+                    </div>
+                        <form action="{% url 'uakinotv:vote' film_desc.id %}" method="post" >
+                            {% csrf_token %}
+                            <div class="left-side">
+                                <h3 class="sear-head editContent" >Оцінка</h3>
+                                <ul class="w3layouts-box-list">
+                                    {% for vote in votes %}
+                                    <li class="editContent" style="display: inline-block;">
+                                        <input type="checkbox" class="checked" name="mark" value="{{ vote.mark}}">
+                                        <span class="span editContent" >{{ vote.mark}}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <button type= "submit">Оцінити</button>
+                        </form>
+                    <hr>
+                    <div class="row">
+                        <div class="single-form-left">
+                            <!-- contact form grid -->
+                            <div class="contact-single">
+                                <h3 class="editContent" style="outline: none; cursor: inherit;">
+                                    <span class="sub-tittle editContent"
+                                          style="outline: none; cursor: inherit;"></span>Залишити відгук</h3>
+                                <form action="{% url 'uakinotv:review' film_desc.id %}" method="post" class="mt-4">
+                                    {% csrf_token %}
+                                    <div class="form-group editContent">
+                                        <label for="contactcomment" class="editContent">
+                                        </label>
+                                        <textarea class="form-control border" rows="5" name="text"
+                                                  id="contactcomment" required=""></textarea>
+                                    </div>
+                                    <div class="d-sm-flex">
+                                        <div class="col-sm-6 form-group p-0 editContent">
+                                            <label for="contactusername" class="editContent">
+                                                Ім'я_
+                                            </label>
+                                            <input type="text" class="form-control border" name="name"
+                                                   id="contactusername" required="">
+                                        </div>
+                                        <div class="col-sm-6 form-group ml-sm-3 editContent">
+                                            <label for="contactemail" class="editContent">
+                                                Email
+                                            </label>
+                                            <input type="email" class="form-control border" name="email"
+                                                   id="contactemail" required="">
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                            class="mt-3 btn btn-success btn-block py-3">
+                                        Відправити
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                            <div class="media-body mt-4">
+                                {% for views in coment %}
+                                <h3 class="mt-0 editContent"
+                                    style="outline: none; cursor: inherit;"> Ім'я: {{ views.name}}</h3>
+                                <p class="mt-2 editContent" style="outline: none; cursor: inherit;">
+                                   Відгук: {{ views.text}}
+                                </p>
+<!--&lt;!&ndash;                            <div class="desc1-left col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <img src="{{film_desc.picture.url}}" class="img-fluid" alt="">&ndash;&gt;-->
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
